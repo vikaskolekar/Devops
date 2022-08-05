@@ -1,0 +1,59 @@
+# Create a VPC
+
+resource "aws_vpc" "my-vpc" {
+cidr_block = "10.0.0.0/16"
+
+tags = {
+Name = "Demo VPC"
+}
+}
+
+# Create Web Public Subnet
+resource "aws_subnet" "web-subnet-1" {
+
+vpc_id = aws_vpc.my-vpc.id
+cidr_block = "10.0.1.0/24"
+
+availability_zone = "ap-south-1a"
+map_public_ip_on_launch = true
+
+tags = {
+
+Name = "Web-1a"
+}
+}
+
+resource "aws_subnet" "web-subnet-2" {
+ 
+provider "aws" {
+  region     = "us-west-2"
+  access_key = "my-access-key"
+  secret_key = "my-secret-key"
+}
+
+vpc_id = aws_vpc.my-vpc.id
+cidr_block = "10.0.2.0/24"
+
+availability_zone = "ap-south-1b"
+map_public_ip_on_launch = true
+
+tags = {
+
+Name = "Web-2b"
+}
+}
+
+# Create Application Public Subnet
+resource "aws_subnet" "application-subnet-1" {
+
+vpc_id = aws_vpc.my-vpc.id
+cidr_block = "10.0.11.0/24"
+
+availability_zone = "ap-south-1a"
+map_public_ip_on_launch = false
+
+tags = {
+
+Name = "Application-1a"
+}
+}

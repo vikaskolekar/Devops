@@ -1,0 +1,6 @@
+---
+- name: Setup Apache Tomcat
+  hosts: localhost
+  roles:
+    - tomcat
+
